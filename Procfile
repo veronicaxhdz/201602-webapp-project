@@ -1,1 +1,1 @@
-web: gunicorn flask-app:app --log-file=-
+web: gunicorn my_course_counts:app --log-file=-
