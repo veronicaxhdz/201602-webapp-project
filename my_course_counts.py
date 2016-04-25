@@ -1,5 +1,6 @@
 from os import chdir
 from os.path import dirname, realpath
+import re
 
 from flask import Flask, render_template, send_from_directory
 
@@ -22,6 +23,18 @@ class Course:
         self.researved = reserved
         self.reserved_open = reserved_open
         self.waitlisted = waitlisted
+
+def get_year():
+    year = []
+    with open('counts.csv') as file:
+        text = file.read()
+    course_list = text.splitlines()
+    for  in list:
+        temp_list = re.split(r'\t+', term)
+        title = temp_list[0]
+        year = temp_list[1]
+
+
 
 
 
