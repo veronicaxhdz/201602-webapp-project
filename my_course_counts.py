@@ -5,7 +5,25 @@ from flask import Flask, render_template, send_from_directory
 
 app = Flask(__name__)
 
-# FIXME write your app below
+class Course:
+    def __init__(self, year, season, department, number, section, title, units, instructors_meetings,
+                 core, seats, enrolled, reserved, reserved_open, waitlisted):
+        self.year = year
+        self.season = season
+        self.department = department
+        self.number = number
+        self.section = section
+        self.title = title
+        self.units = units
+        self.instructors_meetings = instructors_meetings
+        self.core = core
+        self.seats = seats
+        self.enrolled = enrolled
+        self.researved = reserved
+        self.reserved_open = reserved_open
+        self.waitlisted = waitlisted
+
+
 
 @app.route('/')
 def view_root():
