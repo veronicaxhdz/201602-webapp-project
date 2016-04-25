@@ -51,6 +51,38 @@ def get_data():
 
     return course_list
 
+def str_contains(haystack, needle):
+    return (needle.lower() in haystack.lower())
+
+def search_by_year(self, year):
+    results = []
+    for course in self.course:
+        match = False
+        for year in course.year:
+            if str_contains(year, string):
+                match = True
+                break
+        if match:
+                results.append(course)
+        return results
+
+def search_by_number(self, number):
+    results = []
+    for course in self.course:
+        match = False
+        for number in course.number:
+            if str_countains(number, string):
+                match = True
+                break
+        if match:
+            results.append(course)
+        return results
+
+
+
+
+
+
 '''
 def get_year():
     courses = []
