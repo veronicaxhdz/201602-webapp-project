@@ -24,32 +24,55 @@ class Course:
         self.reserved_open = reserved_open
         self.waitlisted = waitlisted
 
+    def get_year_list(self):
+        return self.year
+
+def get_data():
+    courses = []
+    with open('counts.tsv') as fd:
+        for line in fd.read().splitlines():
+            year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted = line.split('\t')
+            last_name, first_name = name.split(', ')
+            courses.append(Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted))
+    return sorted(courses, key=(lambda s: s.department))
+
+
+
+
 def get_data():
     course_list = []
     with open('counts.tsv') as fd:
         course = fd.read().splitlines()
-        for term in course:
-            temp_list = re.split(r'\t+', term)
-            year = temp_list [0]
-            season = temp_list [1]
-            department = temp_list [2]
-            number = temp_list [3]
-            section = temp_list [4]
-            title = temp_list [5]
-            units = temp_list [6]
-            instructors =  temp_list [7]
-            meetings = temp_list [8]
-            core = temp_list [9]
-            seats = temp_list [10]
-            enrolled = temp_list [11]
-            reserved = temp_list [12]
-            reserved_open = temp_list [13]
-            waitlisted = temp_list  [14]
+    for term in course:
+        temp_list = re.split(r'\t+', term)
+        year = temp_list[0]
+        season = temp_list[1]
+        department = temp_list[2]
+        number = temp_list[3]
+        section = temp_list[4]
+        title = temp_list[5]
+        units = temp_list[6]
+        instructors = temp_list[7]
+        meetings = temp_list[8]
+        core = temp_list[9]
+        seats = temp_list[10]
+        enrolled = temp_list[11]
+        reserved = temp_list[12]
+        reserved_open = temp_list[13]
+        waitlisted = temp_list[14]
 
-            course = Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted)
-            course_list.append(course)
+        course = Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted)
+        course_list.append(course)
+        course = Course(course_list)
+        return course
 
-    return course_list
+    #return sorted(course_list, key=(lambda s: s.department))
+
+
+@app.route('/base')
+def view_directory():
+    course = get_data()
+    return render_template('directory.html',course_list= course)
 
 def str_contains(haystack, needle):
     return (needle.lower() in haystack.lower())
