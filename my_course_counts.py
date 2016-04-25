@@ -24,16 +24,44 @@ class Course:
         self.reserved_open = reserved_open
         self.waitlisted = waitlisted
 
-def get_year():
-    year = []
-    with open('counts.csv') as file:
-        text = file.read()
-    course_list = text.splitlines()
-    for  in list:
-        temp_list = re.split(r'\t+', term)
-        title = temp_list[0]
-        year = temp_list[1]
+def get_data():
+    course_list = []
+    with open('counts.tsv') as fd:
+        course = fd.read().splitlines()
+        for term in course:
+            temp_list = re.split(r'\t+', term)
+            year = temp_list [0]
+            season = temp_list [1]
+            department = temp_list [2]
+            number = temp_list [3]
+            section = temp_list [4]
+            title = temp_list [5]
+            units = temp_list [6]
+            instructors =  temp_list [7]
+            meetings = temp_list [8]
+            core = temp_list [9]
+            seats = temp_list [10]
+            enrolled = temp_list [11]
+            reserved = temp_list [12]
+            reserved_open = temp_list [13]
+            waitlisted = temp_list  [14]
 
+            course = Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted)
+            course_list.append(course)
+
+    return course_list
+
+'''
+def get_year():
+    courses = []
+    with open('counts.tsv') as fd:
+        for line in fd.read().splitlines():
+            year, season, department, number, section, title, units, instructors, meetings,
+    		core, seats, enrolled, reserved, reserved_open, waitlisted = line.split('\t')
+            course.append(Course(year, season, department, number, section, title, units, instructors, meetings,
+    				core, seats, enrolled, reserved, reserved_open, waitlisted))
+    return sorted(students, key=(lambda s: s.year))
+'''
 
 
 
