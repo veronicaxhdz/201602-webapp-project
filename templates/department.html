@@ -8,8 +8,11 @@
     <script src="/js/main.js"></script>
 </head>
 <body>
+    Hello, this is the department directory
     {% for course in courses %}
-    <p><a href="/department/{{ abbrev }}">{{ department }}</a></p>
+    <p><a href="/department/{{ course.department }}">{{ courses.department }}</a></p>
     {% endfor %}
+
+
 </body>
 </html>

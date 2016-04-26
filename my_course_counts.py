@@ -24,25 +24,29 @@ class Course:
         self.reserved_open = reserved_open
         self.waitlisted = waitlisted
 
-    def get_year_list(self):
-        return self.year
 
 def get_data():
-    courses = []
+    course_list = []
     with open('counts.tsv') as fd:
         for line in fd.read().splitlines():
             year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted = line.split('\t')
-            courses.append(Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted))
-    return sorted(courses, key=(lambda s: s.department))
+            course_list.append(Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted))
+    return course_list
+
 
 
 @app.route('/department')
-def view_directory():
+def view_department():
+    return render_template('department.html')
+    '''
     department_list = get_data()
-    return render_template('department.html',department = department_list)
-
-
+    return render_template('department.html', course_list=department_list)
+    '''
 '''
+
+    {% for course in courses %}
+    <p><a href="/department/{{ course.department }}">{{ courses.department }}</a></p>
+    {% endfor %}
 
 def get_data():
     course_list = []
