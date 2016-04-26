@@ -1,13 +1,12 @@
 from os import chdir
 from os.path import dirname, realpath
-import re
 
 from flask import Flask, render_template, send_from_directory
 
 app = Flask(__name__)
 
 class Course:
-    def __init__(self, year, season, department, number, section, title, units, instructors_meetings,
+    def __init__(self, year, season, department, number, section, title, units, instructors, meetings,
                  core, seats, enrolled, reserved, reserved_open, waitlisted):
         self.year = year
         self.season = season
@@ -16,7 +15,8 @@ class Course:
         self.section = section
         self.title = title
         self.units = units
-        self.instructors_meetings = instructors_meetings
+        self.instructors = instructors
+        self.meetings = meetings
         self.core = core
         self.seats = seats
         self.enrolled = enrolled
@@ -32,12 +32,17 @@ def get_data():
     with open('counts.tsv') as fd:
         for line in fd.read().splitlines():
             year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted = line.split('\t')
-            last_name, first_name = name.split(', ')
             courses.append(Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted))
     return sorted(courses, key=(lambda s: s.department))
 
 
+@app.route('/department')
+def view_directory():
+    department_list = get_data()
+    return render_template('department.html',department = department_list)
 
+
+'''
 
 def get_data():
     course_list = []
@@ -67,13 +72,16 @@ def get_data():
         return course
 
     #return sorted(course_list, key=(lambda s: s.department))
+'''
 
-
+'''
 @app.route('/base')
 def view_directory():
-    course = get_data()
-    return render_template('directory.html',course_list= course)
+    course_list = get_data()
+    return render_template('base.html', courses= course_list)
+'''
 
+'''
 def str_contains(haystack, needle):
     return (needle.lower() in haystack.lower())
 
@@ -100,7 +108,7 @@ def search_by_number(self, number):
         if match:
             results.append(course)
         return results
-
+'''
 
 
 

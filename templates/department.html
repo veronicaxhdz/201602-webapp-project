@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Course Counts</title>
+    <title>department</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/main.js"></script>
 </head>
 <body>
-    <img src="/images/oxy-seal.png" style="width:150px; height:150px;">
-    My Course Counts
+    {% for course in courses %}
+    <p><a href="/department/{{ abbrev }}">{{ department }}</a></p>
+    {% endfor %}
 </body>
 </html>
