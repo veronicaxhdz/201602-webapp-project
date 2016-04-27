@@ -1,10 +1,6 @@
-from os import chdir
-from os.path import dirname, realpath
-import re
+def str_contains(haystack, needle):
+    return (needle.lower() in haystack.lower())
 
-from flask import Flask, render_template, send_from_directory
-
-app = Flask(__name__)
 
 class Course:
     def __init__(self, year, season, department, number, section, title, units, instructors, meetings,
@@ -21,143 +17,112 @@ class Course:
         self.core = core
         self.seats = seats
         self.enrolled = enrolled
-        self.researved = reserved
+        self.reserved = reserved
         self.reserved_open = reserved_open
         self.waitlisted = waitlisted
-    def get_classtitle_list(self):
-        # this function should return a list of strings
-        return self.title
 
-class Library:
+
+class Course_Directory:
     def __init__(self):
-        self.counts = []
+        self.courses_list = []
 
-def get_data():
-    course_list = ()
-    with open('counts.tsv') as fd:
-        course = fd.read().splitlines()
-    for term in course:
-        temp_list = re.split(r'\t+', term)
-        year = temp_list[0]
-        season = temp_list[1]
-        department = temp_list[2]
-        number = temp_list[3]
-        section = temp_list[4]
-        title = temp_list[5]
-        units = temp_list[6]
-        instructors = temp_list[7]
-        meetings = temp_list[8]
-        core = temp_list[9]
-        seats = temp_list[10]
-        enrolled = temp_list[11]
-        reserved = temp_list[12]
-        reserved_open = temp_list[13]
-        waitlisted = temp_list[14]
-
-        course_list.counts.append()
-
-        return course_list
-
-def get_data():
-    course_list = []
-    with open('counts.tsv') as fd:
-        for line in fd.read().splitlines():
-            year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted = line.split('\t')
-            course_list.append(Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted))
-    return course_list
-'''
-
-
-@app.route('/department')
-def view_department():
-    return render_template('department.html')
-    '''
-    department_list = get_data()
-    return render_template('department.html', course_list=department_list)
-    '''
-
-'''
-
-    {% for course in courses %}
-    <p><a href="/department/{{ course.department }}">{{ courses.department }}</a></p>
-    {% endfor %}
-
-
-
-'''
-@app.route('/base')
-def view_directory():
-    course_list = get_data()
-    return render_template('base.html', courses= course_list)
-'''
-
-'''
-def str_contains(haystack, needle):
-    return (needle.lower() in haystack.lower())
-
-def search_by_year(self, year):
-    results = []
-    for course in self.course:
-        match = False
-        for year in course.year:
-            if str_contains(year, string):
-                match = True
+    def search_by_instructor(self, instructors):
+        results = []
+        for course in self.courses_list:
+            match = True
+        for instructor in instructors:  # ASK JUSTIN ___.instructors
+            if not str_contains(course.instructors, instructor):
+                match = False
                 break
-        if match:
+            if match:
                 results.append(course)
-        return results
+            return results
 
-def search_by_number(self, number):
-    results = []
-    for course in self.course:
-        match = False
-        for number in course.number:
-            if str_countains(number, string):
-                match = True
-                break
-        if match:
-            results.append(course)
-        return results
-'''
+    def search_by_title(self, title):
+        results = []
+        for course in self.courses_list:
+            match = True
+            for title in course.title:
+                if not str_contains(title, string):
+                    match = False
+                    break
+                if match:
+                    results.append(course)
+                return results
+
+    def search_by_season(self, season):
+        results = []
+        for course in self.courses_list:
+            match = True
+            for course in course.season:
+                if not str_contains(season, string):
+                    match = False
+                    break
+                if match:
+                    results.append(course)
+                return results
+
+    def search_by_department(self, department):
+        results = []
+        for course in self.courses_list:
+            match = True
+            for department in course.department:
+                if not str_contains(department, string):
+                    match = False
+                    break
+                if match:
+                    results.append(course)
+                return results
+
+    def search_by_core(self, core):
+        results = []
+        for course in self.courses_list:
+            match = True
+            for core in course.core:
+                if not str_contains(core, string):
+                    match = False
+                    break
+                if match:
+                    results.append(course)
+                return results
+
+    def search_by_year(self, year):
+        results = []
+        for course in self.courses_list:
+            match = True
+            for year in course.year:
+                if not str_contains(year, string):
+                    match = True
+                    break
+                if match:
+                    results.append(course)
+                return results
+
+    def search_by_number(self, number):
+        results = []
+        for course in self.courses_list:
+            match = True
+            for number in course.number:
+                if not str_contains(number, string):
+                    match = True
+                    break
+                if match:
+                    results.append(course)
+                return results
 
 
-
-
-
-'''
-def get_year():
-    courses = []
+def get_data():
+    course_directory = Course_Directory()  # ASK JUSTIN
     with open('counts.tsv') as fd:
         for line in fd.read().splitlines():
-            year, season, department, number, section, title, units, instructors, meetings,
-    		core, seats, enrolled, reserved, reserved_open, waitlisted = line.split('\t')
-            course.append(Course(year, season, department, number, section, title, units, instructors, meetings,
-    				core, seats, enrolled, reserved, reserved_open, waitlisted))
-    return sorted(students, key=(lambda s: s.year))
-'''
+            temp_list = line.split('\t')
+            course = Course(temp_list[0], temp_list[1], temp_list[2], temp_list[3], temp_list[4], temp_list[5],
+                            temp_list[6], temp_list[7], temp_list[8], temp_list[9], temp_list[10], temp_list[11],
+                            temp_list[12], temp_list[13], temp_list[14])
+            course_directory.courses_list.append(course)
+    return course_directory
 
 
-
-
-@app.route('/')
-def view_root():
-    return render_template('base.html')
-
-# The functions below lets you access files in the css, js, and images folders.
-# You should not change them unless you know what you are doing.
-
-@app.route('/images/<file>')
-def get_image(file):
-    return send_from_directory('images', file)
-
-@app.route('/css/<file>')
-def get_css(file):
-    return send_from_directory('css', file)
-
-@app.route('/js/<file>')
-def get_js(file):
-    return send_from_directory('js', file)
-
-if __name__ == '__main__':
-    chdir(dirname(realpath(__file__)))
-    app.run(debug=True)
+def main():
+    # An example that ties everything together
+    Course_Directory = get_data()
