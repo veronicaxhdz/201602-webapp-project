@@ -30,7 +30,7 @@ class Course_Directory:
         results = []
         for course in self.courses_list:
             match = True
-            for instructor in instructors:  # ASK JUSTIN ___.instructors
+            for instructor in instructors:
                 if not str_contains(course.instructors, instructor):
                     match = False
                     break
@@ -48,7 +48,7 @@ class Course_Directory:
                     break
                 if match:
                     results.append(course)
-                return results
+            return results
                 # veronica
 
     def search_by_season(self, season):
