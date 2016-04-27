@@ -1,10 +1,61 @@
+from os import chdir
+from os.path import dirname, realpath
+
+from flask import Flask, render_template, send_from_directory
+
+app = Flask(__name__)
+
+
 def str_contains(haystack, needle):
     return (needle.lower() in haystack.lower())
+
+department_list = {
+    'American Study':'AMST',
+    'Arabic':'ARAB',
+    'Art History':'ARTH',
+    'Art Studio':'ARTS',
+    'Biochemistry':'BICH',
+    'Biology':'BIO',
+    'Chemistry':'CHEM',
+    'Chinese':'CHIN',
+    'Cognitive Science':'COGS',
+    'Computer Science':'COMP',
+    'Cultural Study Program':'CSP',
+    'Critical Theory and Social Justice':'CTSJ',
+    'Diplomacy and World Affairs':'DWA',
+    'English and Comparative Literary Studies':'ECLS',
+    'Economics':'ECON',
+    'Education':'EDUC',
+    'English and Writing':'ENWR',
+    'French':'FREN',
+    'Geology':'GEO',
+    'Germany':'GERM',
+    'Greek':'GRK',
+    'History':'HIST',
+    'Italian':'ITAL',
+    'Japanese':'JAPN',
+    'Kinesiology':'KINE',
+    'Language':'LANG',
+    'Latin':'LATN',
+    'Mathematics':'MATH',
+    'Music':'MUSC',
+    'Physical Activity':'PHAC',
+    'Philosophy':'PHIL',
+    'Physics':'PHYS',
+    'Politics':'POLS',
+    'Psychology':'PSYC',
+    'Religions':'RELS',
+    'Russian':'RUSN',
+    'Sociology':'SOC',
+    'Spanish':'SPAN',
+    'Theater':'THEA',
+    'Urban and Environmental Policy':'UEP'
+}
 
 
 class Course:
     def __init__(self, year, season, department, number, section, title, units, instructors, meetings,
-                 core, seats, enrolled, reserved, reserved_open, waitlisted):
+                 core):
         self.year = year
         self.season = season
         self.department = department
@@ -15,14 +66,128 @@ class Course:
         self.instructors = instructors
         self.meetings = meetings
         self.core = core
-        self.seats = seats
-        self.enrolled = enrolled
-        self.reserved = reserved
-        self.reserved_open = reserved_open
-        self.waitlisted = waitlisted
 
 
 class Course_Directory:
+
+def get_counts():
+    counts = []
+    with open('counts.tsv') as fd:
+        for line in fd.read().splitlines():
+            year, season, department, number, section, title, units, instructors, meetings, core = line.split('\t')
+            counts.append(Course(year, season, department, number, section, title, units, instructors, meetings, core))
+    return counts
+
+def filter_by_year(list_of_courses, year):
+    '''
+    this function takes as the argument a list of courses
+    and returns a new list of courses, which is the courses in the argument list
+    with the correct year
+    '''
+    list_of_courses = []
+    for count in get_counts():
+            match = False
+            for year in get_counts().year:  # ASK JUSTIN ___.instructors
+                if not str_contains(course.instructors, instructor):
+                    match = False
+                    break
+            if match:
+                results.append(course)
+        return results
+    return list_of_courses # FIXME
+
+@app.route('/')
+def view_root():
+    return render_template('base.html')
+
+@app.route('/department')
+def view_department():
+    departments = []
+    for item in department_list:
+        departments.append(item)
+        sorted_list = departments
+        sorted_list.sort(key=lambda x: x[0])
+    return render_template('department.html', counts=departments)
+
+# FIXME
+@app.route('/<year>/<semester>/')
+def view_courses(year, semester, abbrev):
+    courses_list = get_counts()
+    courses_list = filter_by_year(courses_list, year)
+    courses_list = filter_by_season(courses_list, semester)
+    return render_template('department.html', courses=courses_list)
+
+@app.route('/<year>/<semester>/department/<abbrev>')
+def view_courses(year, semester, abbrev):
+    courses_list = get_counts()
+    courses_list = filter_by_year(courses_list, year)
+    courses_list = filter_by_season(courses_list, semester)
+    courses_list = filter_by_department(courses_list, abbrev)
+    return render_template('department.html', courses=courses_list)
+
+def view_seasons(semester):
+    courses_list = get_counts()
+    courses_list = filter_by_season(courses_list, semester)
+
+
+
+@app.route('/professor-directory')
+def view_professor_list():
+    professor_list = sorted(get_counts(), key=(lambda s: s.instructors))
+    return render_template('professor-directory.html', salutation='Professor Directory',counts=professor_list)
+
+
+
+
+
+
+def filter_by_season(list_of_courses, season):
+    return list_of_courses # FIXME
+
+def filter_by_department(list_of_courses, department):
+    return list_of_courses # FIXME
+
+
+
+
+
+
+
+
+'''
+    for count in counts_list:
+        if year == count.year and department == count.department:
+            current_department = count
+'''
+
+
+'''
+def main():
+    # An example that ties everything together
+    Course_Directory = get_data()
+'''
+@app.route('/images/<file>')
+def get_image(file):
+    return send_from_directory('images', file)
+
+@app.route('/css/<file>')
+def get_css(file):
+    return send_from_directory('css', file)
+
+@app.route('/js/<file>')
+def get_js(file):
+    return send_from_directory('js', file)
+
+if __name__ == '__main__':
+    chdir(dirname(realpath(__file__)))
+    app.run(debug=True)
+
+
+
+
+
+
+       '''
     def __init__(self):
         self.courses_list = []
 
@@ -125,8 +290,4 @@ def get_data():
                 title_list.append(word)
         course_directory.courses_list.append(course)
     return course_directory
-
-
-def main():
-    # An example that ties everything together
-    Course_Directory = get_data()
+'''
