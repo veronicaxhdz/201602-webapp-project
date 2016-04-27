@@ -7,7 +7,7 @@ from flask import Flask, render_template, send_from_directory
 app = Flask(__name__)
 
 class Course:
-    def __init__(self, year, season, department, number, section, title, units, instructors_meetings,
+    def __init__(self, year, season, department, number, section, title, units, instructors, meetings,
                  core, seats, enrolled, reserved, reserved_open, waitlisted):
         self.year = year
         self.season = season
@@ -16,62 +16,113 @@ class Course:
         self.section = section
         self.title = title
         self.units = units
-        self.instructors_meetings = instructors_meetings
+        self.instructors = instructors
+        self.meetings = meetings
         self.core = core
         self.seats = seats
         self.enrolled = enrolled
         self.researved = reserved
         self.reserved_open = reserved_open
         self.waitlisted = waitlisted
+    def get_classtitle_list(self):
+        # this function should return a list of strings
+        return self.title
+
+class Library:
+    def __init__(self):
+        self.counts = []
+
+def get_data():
+    course_list = ()
+    with open('counts.tsv') as fd:
+        course = fd.read().splitlines()
+    for term in course:
+        temp_list = re.split(r'\t+', term)
+        year = temp_list[0]
+        season = temp_list[1]
+        department = temp_list[2]
+        number = temp_list[3]
+        section = temp_list[4]
+        title = temp_list[5]
+        units = temp_list[6]
+        instructors = temp_list[7]
+        meetings = temp_list[8]
+        core = temp_list[9]
+        seats = temp_list[10]
+        enrolled = temp_list[11]
+        reserved = temp_list[12]
+        reserved_open = temp_list[13]
+        waitlisted = temp_list[14]
+
+        course_list.counts.append()
+
+        return course_list
 
 def get_data():
     course_list = []
     with open('counts.tsv') as fd:
-        course = fd.read().splitlines()
-        for term in course:
-            temp_list = re.split(r'\t+', term)
-            year = temp_list [0]
-            season = temp_list [1]
-            department = temp_list [2]
-            number = temp_list [3]
-            section = temp_list [4]
-            title = temp_list [5]
-            units = temp_list [6]
-            instructors =  temp_list [7]
-            meetings = temp_list [8]
-            core = temp_list [9]
-            seats = temp_list [10]
-            enrolled = temp_list [11]
-            reserved = temp_list [12]
-            reserved_open = temp_list [13]
-            waitlisted = temp_list  [14]
-
-            course = Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted)
-            course_list.append(course)
-
+        for line in fd.read().splitlines():
+            year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted = line.split('\t')
+            course_list.append(Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted))
     return course_list
+'''
 
-    def search_by_department:
-        results = []
-        for course in course_list:
-            match = False
-            for department in course.department:
-                if str_contains()
 
-'''def search_by_author(self, string):
-        # This function should return a list of instances of Book whose authors
-        # contain the search term. Make sure there are no duplicates in the
-        # list!
-        results = []
-        for book in self.books:
-            match = False
-            for author in book.authors:
-                if str_contains(author, string):
-                    match = True
-                    break
-            if match:
-                results.append(book)
-        return results'''
+@app.route('/department')
+def view_department():
+    return render_template('department.html')
+    '''
+    department_list = get_data()
+    return render_template('department.html', course_list=department_list)
+    '''
+
+'''
+
+    {% for course in courses %}
+    <p><a href="/department/{{ course.department }}">{{ courses.department }}</a></p>
+    {% endfor %}
+
+
+
+'''
+@app.route('/base')
+def view_directory():
+    course_list = get_data()
+    return render_template('base.html', courses= course_list)
+'''
+
+'''
+def str_contains(haystack, needle):
+    return (needle.lower() in haystack.lower())
+
+def search_by_year(self, year):
+    results = []
+    for course in self.course:
+        match = False
+        for year in course.year:
+            if str_contains(year, string):
+                match = True
+                break
+        if match:
+                results.append(course)
+        return results
+
+def search_by_number(self, number):
+    results = []
+    for course in self.course:
+        match = False
+        for number in course.number:
+            if str_countains(number, string):
+                match = True
+                break
+        if match:
+            results.append(course)
+        return results
+'''
+
+
+
+
 
 '''
 def get_year():

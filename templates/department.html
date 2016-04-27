@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>department</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/main.js"></script>
+</head>
+<body>
+    Hello, this is the department directory
+    {% for course in courses %}
+    <p><a href="/department/{{ course.department }}">{{ courses.department }}</a></p>
+    {% endfor %}
+
+
+</body>
+</html>
