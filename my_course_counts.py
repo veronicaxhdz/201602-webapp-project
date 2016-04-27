@@ -1,5 +1,6 @@
 from os import chdir
 from os.path import dirname, realpath
+import re
 
 from flask import Flask, render_template, send_from_directory
 
@@ -23,33 +24,16 @@ class Course:
         self.researved = reserved
         self.reserved_open = reserved_open
         self.waitlisted = waitlisted
+    def get_classtitle_list(self):
+        # this function should return a list of strings
+        return self.title
 
-
-def get_data():
-    course_list = []
-    with open('counts.tsv') as fd:
-        for line in fd.read().splitlines():
-            year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted = line.split('\t')
-            course_list.append(Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted))
-    return course_list
-
-
-
-@app.route('/department')
-def view_department():
-    return render_template('department.html')
-    '''
-    department_list = get_data()
-    return render_template('department.html', course_list=department_list)
-    '''
-'''
-
-    {% for course in courses %}
-    <p><a href="/department/{{ course.department }}">{{ courses.department }}</a></p>
-    {% endfor %}
+class Library:
+    def __init__(self):
+        self.counts = []
 
 def get_data():
-    course_list = []
+    course_list = ()
     with open('counts.tsv') as fd:
         course = fd.read().splitlines()
     for term in course:
@@ -70,13 +54,35 @@ def get_data():
         reserved_open = temp_list[13]
         waitlisted = temp_list[14]
 
-        course = Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted)
-        course_list.append(course)
-        course = Course(course_list)
-        return course
+        course_list.counts.append()
 
-    #return sorted(course_list, key=(lambda s: s.department))
+        return course_list
+
+def get_data():
+    course_list = []
+    with open('counts.tsv') as fd:
+        for line in fd.read().splitlines():
+            year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted = line.split('\t')
+            course_list.append(Course(year, season, department, number, section, title, units, instructors, meetings, core, seats, enrolled, reserved, reserved_open, waitlisted))
+    return course_list
 '''
+
+
+@app.route('/department')
+def view_department():
+    return render_template('department.html')
+    '''
+    department_list = get_data()
+    return render_template('department.html', course_list=department_list)
+    '''
+
+'''
+
+    {% for course in courses %}
+    <p><a href="/department/{{ course.department }}">{{ courses.department }}</a></p>
+    {% endfor %}
+
+
 
 '''
 @app.route('/base')
