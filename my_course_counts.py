@@ -67,34 +67,38 @@ class Course:
         self.meetings = meetings
         self.core = core
 
-
-class Course_Directory:
-
 def get_counts():
-    counts = []
-    with open('counts.tsv') as fd:
-        for line in fd.read().splitlines():
-            year, season, department, number, section, title, units, instructors, meetings, core = line.split('\t')
-            counts.append(Course(year, season, department, number, section, title, units, instructors, meetings, core))
-    return counts
+        counts = []
+        with open('counts.tsv') as fd:
+            for line in fd.read().splitlines():
+                year, season, department, number, section, title, units, instructors, meetings, core = line.split('\t')
+                counts.append(Course(year, season, department, number, section, title, units, instructors, meetings, core))
+        return counts
 
-def filter_by_year(list_of_courses, year):
+def filter_by_year(list_of_courses, time_year):
     '''
     this function takes as the argument a list of courses
     and returns a new list of courses, which is the courses in the argument list
     with the correct year
     '''
-    list_of_courses = []
-    for count in get_counts():
-            match = False
-            for year in get_counts().year:  # ASK JUSTIN ___.instructors
-                if not str_contains(course.instructors, instructor):
-                    match = False
-                    break
-            if match:
-                results.append(course)
-        return results
+    results = []
+    for count in list_of_courses:
+        if time_year == time_year:
+            results.append(count)
+    return results
+
+
+
+
+
+
+def filter_by_season(list_of_courses, season):
+
+
+
     return list_of_courses # FIXME
+
+
 
 @app.route('/')
 def view_root():
@@ -141,8 +145,7 @@ def view_professor_list():
 
 
 
-def filter_by_season(list_of_courses, season):
-    return list_of_courses # FIXME
+
 
 def filter_by_department(list_of_courses, department):
     return list_of_courses # FIXME
