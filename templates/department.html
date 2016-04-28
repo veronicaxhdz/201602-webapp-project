@@ -10,8 +10,8 @@
 <body>
     Hello, this is the department directory
     <br>
-    {% for count in counts %}
-    <p><a {{ count }} </p>
+    {% for dept_name, dept_code in counts %}
+    <p><a href="/courses">{{ dept_name }} -- {{ dept_code }}</a></p>
     {% endfor %}
 
 </body>

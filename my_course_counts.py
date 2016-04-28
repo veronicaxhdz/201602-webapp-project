@@ -50,9 +50,26 @@ department_list = {
     'Spanish':'SPAN',
     'Theater':'THEA',
     'Urban and Environmental Policy':'UEP'
-}
+    }
 
-
+season_list = [
+        'Spring',
+        'Summer',
+        'Fall'
+    ]
+'''
+year_list=[
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018
+]
+'''
 class Course:
     def __init__(self, year, season, department, number, section, title, units, instructors, meetings,
                  core):
@@ -87,10 +104,10 @@ def filter_by_year(list_of_courses, time_year):
             results.append(count)
     return results
 
-def filter_by_season(list_of_courses, time_season):
+def filter_by_season(list_of_courses, semester):
     results = []
     for count in list_of_courses:
-        if time_season == count.season:
+        if semester == count.season:
             results.append(count)
     return results
 
@@ -109,22 +126,27 @@ def view_root():
 @app.route('/department')
 def view_department():
     departments = []
-    for item in department_list:
-        departments.append(item)
-        sorted_list = departments
-        sorted_list.sort(key=lambda x: x[0])
+    for key, value in department_list.items():
+        departments.append([key, value])
+    departments.sort(key=lambda x: x[0])
     return render_template('department.html', counts=departments)
 
-# FIXME
+@app.route('/season')
+def view_season():
+    semesters = []
+    for semester in season_list:
+        semesters.append(semester)
+    return render_template('season.html', seasons=semesters)
+
 @app.route('/<year>/<semester>/')
-def view_courses(year, semester, abbrev):
+def view_courses_time(year, semester):
     courses_list = get_counts()
     courses_list = filter_by_year(courses_list, year)
     courses_list = filter_by_season(courses_list, semester)
     return render_template('department.html', courses=courses_list)
 
 @app.route('/<year>/<semester>/department/<abbrev>')
-def view_courses(year, semester, abbrev):
+def view_courses_department(year, semester, abbrev):
     courses_list = get_counts()
     courses_list = filter_by_year(courses_list, year)
     courses_list = filter_by_season(courses_list, semester)
@@ -144,33 +166,6 @@ def view_professor_list():
 
 
 
-
-
-
-
-
-def filter_by_department(list_of_courses, department):
-    return list_of_courses # FIXME
-
-
-
-
-
-
-
-
-'''
-    for count in counts_list:
-        if year == count.year and department == count.department:
-            current_department = count
-'''
-
-
-'''
-def main():
-    # An example that ties everything together
-    Course_Directory = get_data()
-'''
 @app.route('/images/<file>')
 def get_image(file):
     return send_from_directory('images', file)
@@ -189,110 +184,3 @@ if __name__ == '__main__':
 
 
 
-
-
-
-       '''
-    def __init__(self):
-        self.courses_list = []
-
-    def search_by_instructor(self, instructors):
-        results = []
-        for course in self.courses_list:
-            match = True
-            for instructor in instructors:  # ASK JUSTIN ___.instructors
-                if not str_contains(course.instructors, instructor):
-                    match = False
-                    break
-            if match:
-                results.append(course)
-        return results
-
-    def search_by_title(self, title):
-        results = []
-        for course in self.courses_list:
-            match = True
-            for word in course.title:
-                if not str_contains(course.title, word):
-                    match = False
-                    break
-                if match:
-                    results.append(course)
-                return results
-                # veronica
-
-    def search_by_season(self, season):
-        results = []
-        for course in self.courses_list:
-            match = True
-            if not str_contains(course.season, season):
-                match = False
-                break
-            if match:
-                results.append(course)
-            return results
-            # Veronica
-
-    def search_by_department(self, department):
-        results = []
-        for course in self.courses_list:
-            match = True
-            if not str_contains(course.department, department):
-                match = False
-                break
-            if match:
-                results.append(course)
-            return results
-            # Veronica
-
-    def search_by_core(self, core):
-        results = []
-        for course in self.courses_list:
-            match = True
-            if not str_contains(course.core, core):
-                match = False
-                break
-        if match:
-            results.append(course)
-        return results
-
-    def search_by_year(self, year):
-        results = []
-        for course in self.courses_list:
-            match = True
-            if not str_contains(course.year, year):
-                match = False
-            break
-            if match:
-                results.append(course)
-            return results
-
-    def search_by_number(self, number):
-        results = []
-        for course in self.courses_list:
-            match = True
-            if not str_contains(course.number, number):
-                match = True
-            break
-            if match:
-                results.append(course)
-            return results
-
-
-def get_data():
-    course_directory = Course_Directory()
-    instructor_list = []
-    title_list = []
-    with open('counts.tsv') as fd:
-        for line in fd.read().splitlines():
-            temp_list = line.split('\t')
-            course = Course(temp_list[0], temp_list[1], temp_list[2], temp_list[3], temp_list[4], title_list,
-                            temp_list[6], instructor_list, temp_list[8], temp_list[9], temp_list[10], temp_list[11],
-                            temp_list[12], temp_list[13], temp_list[14])
-            for instructor in temp_list[7]:
-                instructor_list.append(instructor)
-            for word in temp_list[5]:
-                title_list.append(word)
-        course_directory.courses_list.append(course)
-    return course_directory
-'''
