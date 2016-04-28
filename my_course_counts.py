@@ -118,7 +118,7 @@ def filter_by_department(list_of_courses, department):
 @app.route('/')
 def view_root():
     return render_template('base.html')
-
+'''
 @app.route('/department')
 def view_department():
     departments = []
@@ -126,7 +126,7 @@ def view_department():
         departments.append([key, value])
     departments.sort(key=lambda x: x[0])
     return render_template('department.html', counts=departments)
-
+'''
 @app.route('/year')
 def view_year():
     years = []
