@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Course Counts</title>
+    <title>year</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/main.js"></script>
 </head>
 <body>
     <img src="/images/oxy-seal.png" style="width:150px; height:150px;">
-    My Course Counts
+    This is the year list
 
-
+    {% for year in years %}
+    <a href="/{{ year }}/season">{{ year }}</a>
+    {% endfor %}
 
 </body>
 </html>

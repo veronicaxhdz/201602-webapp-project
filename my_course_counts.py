@@ -57,19 +57,15 @@ season_list = [
         'Summer',
         'Fall'
     ]
-'''
+
 year_list=[
-    2010,
-    2011,
-    2012,
-    2013,
-    2014,
-    2015,
-    2016,
-    2017,
-    2018
-]
-'''
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+    ]
+
 class Course:
     def __init__(self, year, season, department, number, section, title, units, instructors, meetings,
                  core):
@@ -131,21 +127,29 @@ def view_department():
     departments.sort(key=lambda x: x[0])
     return render_template('department.html', counts=departments)
 
-@app.route('/season')
-def view_season():
+@app.route('/year')
+def view_year():
+    years = []
+    for year in year_list:
+        years.append(year)
+    return render_template('year.html', years=years)
+
+@app.route('/<year>/season')
+def view_season(year):
     semesters = []
     for semester in season_list:
         semesters.append(semester)
-    return render_template('season.html', seasons=semesters)
+    return render_template('season.html', semesters=semesters)
 
-@app.route('/<year>/<semester>/')
-def view_courses_time(year, semester):
+
+@app.route('/<year>/<season>/')
+def view_courses_time(year, season):
     courses_list = get_counts()
     courses_list = filter_by_year(courses_list, year)
-    courses_list = filter_by_season(courses_list, semester)
+    courses_list = filter_by_season(courses_list, season)
     return render_template('department.html', courses=courses_list)
 
-@app.route('/<year>/<semester>/department/<abbrev>')
+@app.route('/<year>/<season>/department/<abbrev>')
 def view_courses_department(year, semester, abbrev):
     courses_list = get_counts()
     courses_list = filter_by_year(courses_list, year)
