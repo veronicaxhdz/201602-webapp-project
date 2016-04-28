@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>department</title>
+    <title>department-abbrev</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/main.js"></script>
 </head>
 <body>
-    Hello, this is the department directory
+    Hello, this is the list of all courses
     <br>
-    {% for dept_name, dept_code in counts %}
-    <p><a href="department/{{ dept_code}}">{{ dept_name }} -- {{ dept_code }}</a></p>
+    {% for course in courses %}
+    <p>{{ course.title }} {{ course.instructors }} {{ course.meeting }}</p>
     {% endfor %}
 
 </body>

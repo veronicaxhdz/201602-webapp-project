@@ -84,7 +84,7 @@ def get_counts():
         counts = []
         with open('counts.tsv') as fd:
             for line in fd.read().splitlines():
-                year, season, department, number, section, title, units, instructors, meetings, core = line.split('\t')
+                year, season, department, number, section, title, units, instructors, meetings, core, *rest = line.split('\t')
                 counts.append(Course(year, season, department, number, section, title, units, instructors, meetings, core))
         return counts
 
@@ -95,6 +95,7 @@ def filter_by_year(list_of_courses, time_year):
     with the correct year
     '''
     results = []
+    list_of_courses = get_counts()
     for count in list_of_courses:
         if time_year == count.year:
             results.append(count)
@@ -102,6 +103,7 @@ def filter_by_year(list_of_courses, time_year):
 
 def filter_by_season(list_of_courses, semester):
     results = []
+    list_of_courses = get_counts()
     for count in list_of_courses:
         if semester == count.season:
             results.append(count)
@@ -109,6 +111,7 @@ def filter_by_season(list_of_courses, semester):
 
 def filter_by_department(list_of_courses, department):
     results = []
+    list_of_courses = get_counts()
     for count in list_of_courses:
         if department == count.department:
             results.append(count)
@@ -118,15 +121,7 @@ def filter_by_department(list_of_courses, department):
 @app.route('/')
 def view_root():
     return render_template('base.html')
-'''
-@app.route('/department')
-def view_department():
-    departments = []
-    for key, value in department_list.items():
-        departments.append([key, value])
-    departments.sort(key=lambda x: x[0])
-    return render_template('department.html', counts=departments)
-'''
+
 @app.route('/year')
 def view_year():
     years = []
@@ -139,7 +134,7 @@ def view_season(year):
     semesters = []
     for semester in season_list:
         semesters.append(semester)
-    return render_template('/season.html', year=year, semesters=semesters)
+    return render_template('season.html', year=year, semesters=semesters)
 
 @app.route('/<year>/<season>/department')
 def view_department(year,season):
@@ -151,24 +146,19 @@ def view_department(year,season):
 
 
 @app.route('/<year>/<season>/department/<abbrev>')
-def view_courses_department(year, semester, abbrev):
+def view_courses_department(year, season, abbrev):
     courses_list = get_counts()
     courses_list = filter_by_year(courses_list, year)
-    courses_list = filter_by_season(courses_list, semester)
+    courses_list = filter_by_season(courses_list, season)
     courses_list = filter_by_department(courses_list, abbrev)
-    return render_template('department.html', year=year, season=semester, courses=courses_list)
-'''
-def view_seasons(semester):
-    courses_list = get_counts()
-    courses_list = filter_by_season(courses_list, semester)
-'''
+    return render_template('department-abbrev.html', year=year, season=season, courses=courses_list)
 
-
+'''
 @app.route('/professor-directory')
 def view_professor_list():
     professor_list = sorted(get_counts(), key=(lambda s: s.instructors))
     return render_template('professor-directory.html', salutation='Professor Directory',counts=professor_list)
-
+'''
 
 
 @app.route('/images/<file>')
