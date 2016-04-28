@@ -139,16 +139,17 @@ def view_season(year):
     semesters = []
     for semester in season_list:
         semesters.append(semester)
-    return render_template('season.html', semesters=semesters)
+    return render_template('/season.html', year=year, semesters=semesters)
 
 
+'''
 @app.route('/<year>/<season>/')
 def view_courses_time(year, season):
     courses_list = get_counts()
     courses_list = filter_by_year(courses_list, year)
     courses_list = filter_by_season(courses_list, season)
     return render_template('department.html', courses=courses_list)
-
+'''
 @app.route('/<year>/<season>/department/<abbrev>')
 def view_courses_department(year, semester, abbrev):
     courses_list = get_counts()
