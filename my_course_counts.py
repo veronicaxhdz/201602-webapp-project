@@ -83,21 +83,23 @@ def filter_by_year(list_of_courses, time_year):
     '''
     results = []
     for count in list_of_courses:
-        if time_year == time_year:
+        if time_year == count.year:
             results.append(count)
     return results
 
+def filter_by_season(list_of_courses, time_season):
+    results = []
+    for count in list_of_courses:
+        if time_season == count.season:
+            results.append(count)
+    return results
 
-
-
-
-
-def filter_by_season(list_of_courses, season):
-
-
-
-    return list_of_courses # FIXME
-
+def filter_by_department(list_of_courses, department):
+    results = []
+    for count in list_of_courses:
+        if department == count.department:
+            results.append(count)
+    return results
 
 
 @app.route('/')
