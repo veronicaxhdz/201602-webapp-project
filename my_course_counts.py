@@ -141,6 +141,15 @@ def view_season(year):
         semesters.append(semester)
     return render_template('/season.html', year=year, semesters=semesters)
 
+@app.route('/<year>/<season>/department')
+def view_department(year,season):
+    departments = []
+    for key, value in department_list.items():
+        departments.append([key, value])
+    departments.sort(key=lambda x: x[0])
+    return render_template('department.html', year=year, seasons=season, counts=departments)
+
+
 @app.route('/<year>/<season>/department/<abbrev>')
 def view_courses_department(year, semester, abbrev):
     courses_list = get_counts()
