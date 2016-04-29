@@ -16,11 +16,23 @@
         background-size: 100% 150%;
         background-repeat: no-repeat;
     }
+    div.title {
+    position: relative;
+    top: -110px;
+    color:white;
+    opacity:0.45;
+    text-transform: uppercase;
+    }
 </style>
 
 <body>
+<div class="relative">
+    <img src="/images/oxy-seal.png" style="width:150px; height:150px;padding:30px">
+    </div>
 
-<br>
+<div class="title">
+<h1>{{year}} {{season}}  </h1>
+    </div>
 <table style="width:100%; border-collapse:collapse;">
     {% for course in courses %}
 

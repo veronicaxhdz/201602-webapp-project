@@ -68,14 +68,13 @@
     </div>
 
 <div class="title">
-<h1>Occidental College Course Count</h1>
+<h1>{{ year }}</h1>
     </div>
 
-<div class=""season">
    {% for semester in semesters %}
    <p><a href="/{{ year }}/{{ semester }}/department">{{ semester }}</a></p>
    {% endfor %}
-    </div>
+
 
 </body>
 </html>
