@@ -6,7 +6,8 @@ body {
     }
 
 p {
-color : black;
+color : white;
+font-family: Arial, Helvetica, sans-serif;
 }
 
 h1 {
@@ -25,4 +26,18 @@ a {
 
 name {
 text-transform: uppercase;
+}
+
+nav.main-nav {
+    background:#fff;
+    height:60px;
+    z-index:170;
+    margin:0 auto;
+    border-bottom:1px solid #dadada;
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    text-align: center;
 }

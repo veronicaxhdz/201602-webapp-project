@@ -9,11 +9,17 @@
 </head>
 
 <style>
-    table, th, td {border: 1px solid black;}
+    table, th, td {border: 2px solid white; padding: 10px;
+    text-align: left;}
+    body {
+        background-image: url("/images/abstract-gaussian-blur-gradient-1515056-1920x1200.png");
+        background-size: 100% 150%;
+        background-repeat: no-repeat;
+    }
 </style>
 
 <body>
-Hello, this is the list of all courses
+
 <br>
 <table style="width:100%; border-collapse:collapse;">
     {% for course in courses %}
@@ -21,8 +27,9 @@ Hello, this is the list of all courses
     <tr>
         <td><p>{{ course.year }}</p></td>
         <td><p>{{ course.season }}</p></td>
-        <td><p>{{ course.title }}</p></td>
+        <td><p>{{ course.number }}</p></td>
         <td><p>{{ course.section }}</p></td>
+        <td><p>{{ course.title }}</p></td>
         <td><p>{{ course.instructors }}</p></td>
         <td><p>{{ course.meetings }}</p></td>
     </tr>
