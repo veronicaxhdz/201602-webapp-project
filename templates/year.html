@@ -7,13 +7,77 @@
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/main.js"></script>
 </head>
-<body>
-    <img src="/images/oxy-seal.png" style="width:150px; height:150px;">
-    This is the year list
 
-    {% for year in years %}
-    <a href="/{{ year }}/season">{{ year }}</a>
-    {% endfor %}
+<style>
+    body {
+        background-image: url("/images/abstract-gaussian-blur-gradient-1515056-1920x1200.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    a:link, a:visited {
+    background-color: #ffffff;
+    color: #53425e;
+    padding: 14px 30px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:17px;
+    text-decoration: none;
+    display: inline-block;
+    opacity:0.5;
+    position: relative;
+    top: -80px;
+    }
+
+    div.relative {
+    position: relative;
+    top: -110px;
+    }
+
+    div.title {
+    position: relative;
+    top: -110px;
+    color:white;
+    opacity:0.45;
+    }
+
+
+    a:hover, a:active {
+    background-color: #8df1ff;
+    color: #53425e;
+    padding: 14px 30px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:17px;
+    text-decoration: none;
+    display: inline-block;
+</style>
+
+<body>
+<div class="relative">
+    <img src="/images/oxy-seal.png" style="width:150px; height:150px;padding:30px">
+    </div>
+
+<div class="title">
+<h1>Occidental College Course Count</h1>
+    </div>
+
+<table id = "YearTable"; style="width:100%">
+    <tr>
+
+    <td><a href="/2010/season">{{ 2010 }}</a></td>
+    <td><a href="/2011/season">{{ 2011 }}</a></td>
+    <td><a href="/2012/season">{{ 2012 }}</a></td>
+    <td><a href="/2013/season">{{ 2013 }}</a></td>
+    <td><a href="/2014/season">{{ 2014 }}</a></td>
+    <td><a href="/2015/season">{{ 2015 }}</a></td>
+    <td><a href="/2016/season">{{ 2016 }}</a></td>
+    <td><a href="/2017/season">{{ 2017 }}</a></td>
+
+
+
+
+
 
 </body>
 </html>

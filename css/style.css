@@ -6,8 +6,22 @@ body {
     }
 
 p {
-color : RED;}
+color : black;
+}
 
+h1 {
+font-family:futura;
+font-weight: normal;
+font-size:60px;
+}
+
+
+
+a {
+    color: Blue;
+    font-family:Josefin Sans;
+    font-size:18pt;
+}
 
 name {
 text-transform: uppercase;

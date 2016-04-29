@@ -7,12 +7,30 @@
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/main.js"></script>
 </head>
+
+<style>
+    table, th, td {border: 1px solid black;}
+</style>
+
 <body>
-    Hello, this is the list of all courses
-    <br>
+Hello, this is the list of all courses
+<br>
+<table style="width:100%; border-collapse:collapse;">
     {% for course in courses %}
-    <p>{{ course.title }} {{ course.instructors }} {{ course.meeting }}</p>
+
+    <tr>
+        <td><p>{{ course.year }}</p></td>
+        <td><p>{{ course.season }}</p></td>
+        <td><p>{{ course.title }}</p></td>
+        <td><p>{{ course.section }}</p></td>
+        <td><p>{{ course.instructors }}</p></td>
+        <td><p>{{ course.meetings }}</p></td>
+    </tr>
     {% endfor %}
+</table>
+
+
+
 
 </body>
 </html>

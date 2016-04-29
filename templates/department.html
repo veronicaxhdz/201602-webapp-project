@@ -2,17 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>department</title>
+    <title>year</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/main.js"></script>
 </head>
+
+<style>
+    body {
+        background-image: url("/images/abstract-gaussian-blur-gradient-1515056-1920x1200.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+
+    a:link, a:visited {
+    background-color: #ffffff;
+    color: #53425e;
+    padding: 15px 30px;
+    width:350px;
+    height:22px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:17px;
+    text-decoration: none;
+    display: inline-block;
+    opacity:0.5;
+    position: relative;
+    top: -80px;
+    }
+
+    div.relative {
+    position: relative;
+    top: -110px;
+    }
+
+    div.title {
+    position: relative;
+    top: -110px;
+    color:white;
+    opacity:0.45;
+    }
+
+    div.department {
+    position: relative;
+    top: -60;
+    }
+
+
+    a:hover, a:active {
+    background-color: #8df1ff;
+    color: #53425e;
+    padding: 14px 30px;
+    width:440px;
+    height:22px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:17px;
+    text-decoration: none;
+    display: inline-block;
+</style>
+
 <body>
-    Hello, this is the department directory
-    <br>
+<div class="relative">
+    <img src="/images/oxy-seal.png" style="width:150px; height:150px;padding:30px">
+    </div>
+
+<div class="title">
+<h1>Occidental College Course Count</h1>
+    </div>
+
+<div class=""department">
     {% for dept_name, dept_code in counts %}
-    <p><a href="department/{{ dept_code}}">{{ dept_name }} -- {{ dept_code }}</a></p>
+    <p><a href="department/{{ dept_code}}">{{ dept_name }} ---- {{ dept_code }}</a></p>
     {% endfor %}
+    </div>
+
 
 </body>
 </html>
