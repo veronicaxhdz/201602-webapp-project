@@ -18,14 +18,39 @@
     }
     div.title {
     position: relative;
-    top: -110px;
     color:white;
     opacity:0.45;
     text-transform: uppercase;
     }
+
+
+    table a:link, table a:visited {
+    background-color: #ffffff;
+    color: #53425e;
+    padding: 14px 30px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:17px;
+    text-decoration: none;
+    display: inline-block;
+    opacity:0.5;
+    position: relative;
+    top: -80px;
+    }
+
+    table a:hover, table a:active {
+    background-color: #8df1ff;
+    color: #53425e;
+    padding: 14px 30px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:17px;
+    text-decoration: none;
+    display: inline-block;
 </style>
 
 <body>
+
 <div class="relative">
     <img src="/images/oxy-seal.png" style="width:150px; height:150px;padding:30px">
     </div>
@@ -34,6 +59,16 @@
 <h1>{{year}} {{season}}  </h1>
     </div>
 <table style="width:100%; border-collapse:collapse;">
+
+    <tr>
+        <td><h2>Year</h2></td>
+        <td><h2>Season</h2></td>
+        <td><h2>Number</h2></td>
+        <td><h2>Section</h2></td>
+        <td><h2>Title</h2></td>
+        <td><h2>Instructors</h2></td>
+        <td><h2>Meetings</h2></td>
+    </tr>
     {% for course in courses %}
 
     <tr>
@@ -47,6 +82,12 @@
     </tr>
     {% endfor %}
 </table>
+<div class="relative">
+    <a href="/year"><img src="/images/New_search.png" style="width:150px; height:150px;padding:30px"></a>
+    <a href="http://www.oxy.edu/academics"><img src="/images/my_oxy.png" style="width:150px; height:150px;padding:30px"></a>
+    <a href="https://my.oxy.edu/cp/home/displaylogin"><img src="/images/Oxy_Academic.png" style="width:150px; height:150px;padding:30px"></a>
+    <a href="/year"><img src="/images/note.png" style="width:150px; height:150px;padding:30px"></a>
+    </div>
 
 
 

@@ -10,9 +10,9 @@
 
 <style>
     body {
-        background-image: url("/images/abstract-gaussian-blur-gradient-1515056-1920x1200.png");
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
+    background-image: url("/images/abstract-gaussian-blur-gradient-1515056-1920x1200.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     }
 
     a:link, a:visited {
@@ -62,7 +62,6 @@
     display: inline-block;
 
 
-
 </style>
 
 
@@ -70,17 +69,17 @@
 
 <div class="relative">
     <img src="/images/oxy-seal.png" style="width:150px; height:150px;padding:30px">
-    </div>
+</div>
 
 <div class="title">
-<h1>{{year}} {{seasons}}</h1>
-    </div>
+    <h1>{{year}} {{seasons}}</h1>
+</div>
 
 <div class="department">
     {% for dept_name, dept_code in counts %}
     <p><a href="department/{{ dept_code}}">{{ dept_name }} ---- {{ dept_code }}</a></p>
     {% endfor %}
-    </div>
+</div>
 
 
 </body>
